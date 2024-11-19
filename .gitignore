@@ -49,7 +49,7 @@ pip-delete-this-directory.txt
 poetry.lock
 
 # Credentials and sensitive files
-# client_secret.json
+client_secret.json
 token.json
 *.key
 *.pem
