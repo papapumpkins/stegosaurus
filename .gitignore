@@ -1,0 +1,64 @@
+# Byte-compiled Python files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+*.egg
+
+# PyInstaller files
+*.spec
+
+# Testing and coverage
+.coverage
+.tox/
+.nox/
+.pytest_cache/
+.hypothesis/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+*.pid
+*.seed
+*.manifest
+*.lock
+
+# Pip and Poetry
+pip-log.txt
+pip-delete-this-directory.txt
+poetry.lock
+
+# Credentials and sensitive files
+# client_secret.json
+token.json
+*.key
+*.pem
+
+# Local pipeline storage
+pipelines.json
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Black and isort cache
+.cache/
