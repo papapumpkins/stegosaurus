@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="stegosaurus", 
-    version="0.1.0",  
+    version="0.1.1",  
     author="Neel", 
     author_email="neel@getparker.com", 
     description="A package to execute SQL queries and write to Google Sheets", 
@@ -11,6 +11,10 @@ setup(
     url="https://github.com/papapumpkins/stegosaurus",
     license="MIT", 
     packages=find_packages(), 
+    include_package_data=True,
+    package_data={
+        "stegosaurus": ["queries.sql"],
+    },
     install_requires=[
         "google-auth>=2.0.0",
         "google-auth-oauthlib>=0.4.0", 
