@@ -14,9 +14,8 @@ class RedshiftClient:
         self.service_name = "stegosaurus_redshift"
 
     def connect(self):
-
         if self.conn:
-            print("Using existing database connection. \n")
+            print("Using existing database connection.\n")
             return
         try:
             saved_user = keyring.get_password(self.service_name, "username")
@@ -37,7 +36,7 @@ class RedshiftClient:
                 password=password
             )
             self.cursor = self.conn.cursor()
-            print("Successfully connected to Redshift. \n")
+            print("Successfully connected to Redshift.\n")
 
             if not (saved_user and saved_password):
                 keyring.set_password(self.service_name, "username", user)
@@ -47,25 +46,15 @@ class RedshiftClient:
             print(f"Error connecting to Redshift: {e}")
             self.conn = None
 
-    def execute_query(self, query):
-        """Executes a SQL query and returns the results with column headers."""
+    def execute_query(self, query, params=None):
         if not self.conn:
             raise ValueError("No database connection. Please call connect() first.")
         try:
-            self.cursor.execute(query)
-
-            # Fetch column names
+            self.cursor.execute(query, params)
             column_names = [desc[0] for desc in self.cursor.description]
-
-            # Fetch all rows and convert problematic types
             rows = self.cursor.fetchall()
-            processed_rows = [
-                [self._convert_value(value) for value in row] for row in rows
-            ]
-
-            # Combine column names and rows
-            results = [column_names] + processed_rows
-            return results
+            processed_rows = [[self._convert_value(value) for value in row] for row in rows]
+            return [column_names] + processed_rows
         except Exception as e:
             print(f"FAILURE. Error executing query: {e}")
             self.conn.rollback()
@@ -73,9 +62,8 @@ class RedshiftClient:
 
     @staticmethod
     def _convert_value(value):
-        """Converts problematic data types to native Python types."""
         if isinstance(value, Decimal):
-            return float(value) if value % 1 else int(value)  # Convert Decimal to int or float
+            return float(value) if value % 1 else int(value)
         return value
 
     def close_connection(self):
@@ -84,3 +72,10 @@ class RedshiftClient:
             self.conn.close()
             print("Database connection closed. Ciao")
             self.conn = None
+
+def clear_credentials():
+    import keyring
+    service_name = "stegosaurus_redshift"
+    keyring.delete_password(service_name, "username")
+    keyring.delete_password(service_name, "password")
+    print("Credentials cleared.")
