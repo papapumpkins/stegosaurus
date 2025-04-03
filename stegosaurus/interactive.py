@@ -30,7 +30,7 @@ def run_tyrannosaurus_risk_interactive():
     workspace_id = input("Enter Workspace ID: ").strip()
 
     # Construct new sheet name
-    new_sheet_name = f"Parker Underwriting Form V0.1 - {business_name}"
+    new_sheet_name = f"Parker Underwriting Form V0.2 - {business_name}"
 
     # Copy the template sheet into the destination folder
     from stegosaurus.config import TEMPLATE_SHEET_ID, DESTINATION_FOLDER_ID

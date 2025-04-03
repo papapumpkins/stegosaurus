@@ -8,12 +8,18 @@ REDSHIFT_CONFIG = {
     # Credentials are entered dynamically
 }
 
+POSTGRES_CONFIG = {
+    "host": "parker.cluster-ro-cldpilcb9tyc.us-east-2.rds.amazonaws.com",
+    "port": 5432,
+    "database": "parker",
+}
+
 # 🔹 GOOGLE SHEETS SETTINGS
 GOOGLE_SHEET_ID = '1x_dbVtZHyGLz_7ntXZaBWbCDmnSTwOrQ-cwppnwDUt8'
-SQL_RANGE = 'Steg!$A$2:$J$51'  # Default range for query inputs in Stegosaurus
+SQL_RANGE = 'Steg!$A$2:$K$51'  # Default range for query inputs in Stegosaurus
 
 # 🔹 OG TEMPLATE SHEET FOR TYRANNOSAURUS RISK
-TEMPLATE_SHEET_ID = '1cNVRFhe8qQbKl5ywm0OKaYb_9J3TTSH0cxZRXMA0VWU'
+TEMPLATE_SHEET_ID = '1rJoKSYKl4xAmtn1OL0gOuwSbNrt-IH2MKooa2a6GgNA'
 DESTINATION_FOLDER_ID = '1e1gElWeOQ5UIAaAyMg_8rQcyXnHkrRk-'  # Replace with your Drive folder ID
 
 # 🔹 HELP TEXT FOR CLI COMMANDS

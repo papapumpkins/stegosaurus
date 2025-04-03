@@ -20,6 +20,7 @@ setup(
         "google-auth-oauthlib>=0.4.0", 
         "google-api-python-client>=2.0.0", 
         "psycopg2-binary>=2.9.0", 
+        "keyring>=21.0.0"
     ],
     python_requires=">=3.7",
     entry_points={
