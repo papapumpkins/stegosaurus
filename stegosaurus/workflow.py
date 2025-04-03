@@ -24,10 +24,8 @@ class StegosaurusWorkflow:
         print(f"Executing {len(sql_queries)} queriesssss...")
 
         for i, query in enumerate(sql_queries):
-            print("Here")
             if execute_flags[i] == "1":
                 db_type = query_databases[i]
-                print(db_type)
                 print(f"Executing query {i + 1}: {query_titles[i]} on {db_type}...")
                 
                 if db_type == "postgres":
@@ -46,13 +44,13 @@ class StegosaurusWorkflow:
                         self.sheets_client.clear_range(output_sheet, f"{output_tab}!A:Z")
                         self.sheets_client.write_range(output_sheet, f"{output_tab}!A1", values=results)
                         self.sheets_client.write_range(
-                            self.sheets_client.sheet_id, f"steg!J{i+2}", values=[["PASS"]])
+                            self.sheets_client.sheet_id, f"steg!K{i+2}", values=[["PASS"]])
                         self.sheets_client.write_range(
-                            self.sheets_client.sheet_id, f"steg!I{i+2}", 
+                            self.sheets_client.sheet_id, f"steg!J{i+2}", 
                             values=[[datetime.now().strftime("%Y-%m-%d %H:%M:%S")]])
                         print(f"SUCCESS. Results written to {output_tab}.\n")
                     except Exception as e:
                         print(f"FAILURE. Error: {e}\n")
-                        self.sheets_client.write_range(self.sheets_client.sheet_id, f"steg!J{i+2}", values=[["FAIL"]])
+                        self.sheets_client.write_range(self.sheets_client.sheet_id, f"steg!K{i+2}", values=[["FAIL"]])
                 else:
-                    self.sheets_client.write_range(self.sheets_client.sheet_id, f"steg!J{i+2}", values=[["FAIL"]])
+                    self.sheets_client.write_range(self.sheets_client.sheet_id, f"steg!K{i+2}", values=[["FAIL"]])
