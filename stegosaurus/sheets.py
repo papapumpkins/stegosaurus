@@ -39,11 +39,19 @@ class GoogleSheetsClient:
         sheet = self.service.spreadsheets()
         result = sheet.values().get(spreadsheetId=self.sheet_id, range=range_name).execute()
         return result.get('values', [])
-
+    
     def write_range(self, output_sheet_id, range_name, values):
+        def serialize_item(item):
+            if isinstance(item, (date, datetime)):
+                return str(item)
+            elif isinstance(item, (list, tuple)):
+                # Convert lists/tuples to a comma-separated string.
+                return ', '.join(str(x) for x in item)
+            else:
+                return item
+
         serialized_values = [
-            [str(item) if isinstance(item, (date, datetime)) else item for item in row]
-            for row in values
+            [serialize_item(item) for item in row] for row in values
         ]
         sheet = self.service.spreadsheets()
         body = {'values': serialized_values}

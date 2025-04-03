@@ -26,15 +26,15 @@ with live_offers as (select cb.workspace_id as workspace_id,
                     from live_offers lo
                              join airbyte.creditvirtualaccount cva on lo.workspace_id = cva.workspaceid
                     where lo.pg_amount != 0
-                       or lo.is_ucc_filing_required is true
-     ),daca as (select workspace_id
+                       or lo.is_ucc_filing_required is true),
+     daca as (select workspace_id
                    , current_balance
               from analytics.bank_account
               where subtype = 'SECURITY'),
      deposit_account as (select distinct workspace_id
                          from airbyte.treasury_prime_account
                          where status = 'open')
-select current_date::date as execution_date
+select current_date::date                                                         as execution_date
      , ws.id                                                                      as workspace_id
      , ws.name                                                                    as workspace_name
      , wst.name                                                                   as latest_state
@@ -68,6 +68,9 @@ select current_date::date as execution_date
      , scf.revenue_l3m_best
      , scf.was_dq10_in_l3m
      , scf.ltv90d_2m_ago_ratio_yoy
+     , ws.incorporationdate
+     , ws.industrycategory
+     , ws.websiteurl
 from airbyte.workspace ws
          inner join analytics.workspace_processing_state_most_recent wst on ws.id = wst.workspace_id
          inner join analytics.fact_table ft on ws.id = ft.workspace_id and ft.ref_date = current_date - interval '1 day'
@@ -78,4 +81,4 @@ from airbyte.workspace ws
          left join pg_ucc_now pu on pu.workspace_id = ws.id
          left join daca d on ws.id = d.workspace_id
          left join deposit_account da on ws.id = da.workspace_id
-where ws.id = '<workspace_id>' 
+where ft.workspace_id = '<workspace_id>'

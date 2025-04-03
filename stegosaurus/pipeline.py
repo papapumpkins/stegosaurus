@@ -54,5 +54,5 @@ class PipelineManager:
         print(f"Running pipeline '{name}' on sheet ID: {sheet_id}")
         sheets_client = GoogleSheetsClient(sheet_id=sheet_id)
         db_client = RedshiftClient(**REDSHIFT_CONFIG)
-        workflow = StegosaurusWorkflow(sheets_client, db_client, SQL_RANGE)
+        workflow = StegosaurusWorkflow(sheets_client, SQL_RANGE)
         workflow.execute_workflow()
